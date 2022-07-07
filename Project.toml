@@ -1,0 +1,18 @@
+name = "StableMap"
+uuid = "626594ce-0aac-4e81-a7f6-bc4bb5ff97e9"
+authors = ["Chris Elrod <elrodc@gmail.com> and contributors"]
+version = "0.1.0"
+
+[deps]
+ArrayInterfaceCore = "30b0a656-2188-435a-8636-2ec0e6a096e2"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+
+[compat]
+ArrayInterfaceCore = "0.1.14"
+julia = "1.6"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
