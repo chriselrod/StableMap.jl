@@ -1,7 +1,7 @@
 name = "StableMap"
 uuid = "626594ce-0aac-4e81-a7f6-bc4bb5ff97e9"
 authors = ["Chris Elrod <elrodc@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 ArrayInterfaceCore = "30b0a656-2188-435a-8636-2ec0e6a096e2"
