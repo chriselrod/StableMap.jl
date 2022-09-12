@@ -5,13 +5,32 @@ using LinearAlgebra
 
 export stable_map, stable_map!
 
-function stable_map!(f, dst::AbstractArray{T}, args::Vararg{Any,K}) where {K,T}
+function stable_map!(f, dst::AbstractArray, arg0)
   N = length(dst)
-  all(==(Base.oneto(N)), map(eachindex, args)) ||
+  eachindex(arg0) == Base.oneto(N) ||
     throw(ArgumentError("All args must have same axes."))
   @inbounds for i = 1:N
-    fᵢ = f(map(Base.Fix2(Base.unsafe_getindex, i), args)...)
-    dst[i] = convert(T, fᵢ)::T
+    dst[i] = f(arg0[i])
+  end
+  return dst
+end
+function stable_map!(f, dst::AbstractArray{T}, arg0, args::Vararg{Any,K}) where {K,T}
+  N = length(dst)
+  all(==(Base.oneto(N)), map(eachindex, (arg0, args...))) ||
+    throw(ArgumentError("All args must have same axes."))
+  @inbounds for i = 1:N
+    # fᵢ = f(map(Base.Fix2(Base.unsafe_getindex, i), args)...)
+    # dst[i] = convert(T, fᵢ)::T
+    dst[i] = f(arg0[i], map(Base.Fix2(Base.unsafe_getindex, i), args)...)
+  end
+  return dst
+end
+function stable_map!(f, dst::AbstractArray)
+  N = length(dst)
+  @inbounds for i = 1:N
+    # fᵢ = f(map(Base.Fix2(Base.unsafe_getindex, i), args)...)
+    # dst[i] = convert(T, fᵢ)::T
+    dst[i] = f()
   end
   return dst
 end
@@ -65,7 +84,7 @@ function promote_return(f::F, args...) where {F}
   isconcreteunion(T) && return T
   nothing
 end
-function stable_map(f, args::Vararg{AbstractArray,K}) where {K}
+function stable_map(f::F, args::Vararg{AbstractArray,K}) where {K,F}
   # assume specialized implementation
   all(ArrayInterfaceCore.ismutable, args) || return map(f, args...)
   T = promote_return(f, args...)
