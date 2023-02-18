@@ -1,6 +1,6 @@
 module StableMap
 
-using ArrayInterfaceCore
+using ArrayInterface
 using LinearAlgebra
 
 export stable_map, stable_map!
@@ -86,7 +86,7 @@ function promote_return(f::F, args...) where {F}
 end
 function stable_map(f::F, args::Vararg{AbstractArray,K}) where {K,F}
   # assume specialized implementation
-  all(ArrayInterfaceCore.ismutable, args) || return map(f, args...)
+  all(ArrayInterface.ismutable, args) || return map(f, args...)
   T = promote_return(f, args...)
   first_arg = first(args)
   T === nothing || return stable_map!(f, Array{T}(undef, size(first_arg)), args...)
