@@ -1,14 +1,14 @@
 name = "StableMap"
 uuid = "626594ce-0aac-4e81-a7f6-bc4bb5ff97e9"
 authors = ["Chris Elrod <elrodc@gmail.com> and contributors"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
-ArrayInterfaceCore = "30b0a656-2188-435a-8636-2ec0e6a096e2"
+ArrayInterface = "4fba245c-0d91-5ea0-9b3e-6abc04ee57a9"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
 [compat]
-ArrayInterfaceCore = "0.1.14"
+ArrayInterface = "7"
 julia = "1.6"
 
 [extras]
